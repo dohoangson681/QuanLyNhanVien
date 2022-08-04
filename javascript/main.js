@@ -10,6 +10,7 @@ function getELE(id){
 getELE("btnThem").onclick = function(){
     getELE("header-title").innerHTML = "Log In" ; 
     resetFormInput(); 
+    resetTB() ; 
 }
 // them nhan vien
 function themNV(){
@@ -106,6 +107,7 @@ function getLocalStorage() {
 getLocalStorage() ; 
 // xem nhn vien
 function xemNV(taiKhoanNV) {
+    resetTB() ; 
     var index = dsnv.timNV(taiKhoanNV) ; 
     if(index > -1){
         var foundNV = dsnv.listNV[index] ; 
@@ -203,6 +205,33 @@ function resetFormInput() {
     getELE("tknv").disabled = false ; 
 }
 getELE("btnDong").onclick = resetFormInput ; 
+// reset span
+function resetTB() {
+    getELE("tbTKNV").style.display = "none" ; 
+    getELE("tbTKNV").innerHTML = "" ; 
+
+    getELE("tbTen").style.display = "none" ; 
+    getELE("tbTen").innerHTML = "" ; 
+
+    getELE("tbEmail").style.display = "none" ; 
+    getELE("tbEmail").innerHTML = "" ; 
+
+    getELE("tbMatKhau").style.display = "none" ; 
+    getELE("tbMatKhau").innerHTML = "" ; 
+
+    getELE("tbNgay").style.display = "none" ; 
+    getELE("tbNgay").innerHTML = "" ; 
+
+    getELE("tbLuongCB").style.display = "none" ; 
+    getELE("tbLuongCB").innerHTML = "" ; 
+
+    getELE("tbChucVu").style.display = "none" ; 
+    getELE("tbChucVu").innerHTML = "" ; 
+
+    getELE("tbGiolam").style.display = "none" ; 
+    getELE("tbGiolam").innerHTML = "" ; 
+
+}
 
 
 
