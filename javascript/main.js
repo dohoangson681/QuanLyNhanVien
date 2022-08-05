@@ -74,7 +74,7 @@ function themNV(){
 getELE("btnThemNV").onclick = themNV ; 
 // hien thi len UI
 function showUI(arr) {
-    var content = "" ; 
+    var content = "" ;
     arr.map(function(objectNV){
         content += `
             <tr>
