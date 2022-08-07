@@ -135,14 +135,41 @@ function capNhatNV() {
     var luongCoBanNV =getELE("luongCB").value;
     var chucVu =getELE("chucvu").value;
     var gioLam =getELE("gioLam").value;
-    //
-    var nv = new NhanVien(taiKhoanNV,tenNV,emailNV,passwordNV,ngayLam,luongCoBanNV,chucVu,gioLam) ; 
-    console.log("nv moi" , nv) ; 
 
-    dsnv.capNhatNV(nv , taiKhoanNV) ; 
-    showUI(dsnv.listNV) ; 
-    setLocalStorage(dsnv.listNV) ; 
-    resetFormInput() ; 
+    // validation
+    var validation = new Validation() ; 
+    var isValid = true ;
+    // checkEmpty taikhoanNV
+    // isValid &= validation.checkEmpty(taiKhoanNV , "tbTKNV" , "*Tài khoản nhân viên không được trống") && validation.checkTKNVExist(taiKhoanNV , "tbTKNV" , "*Tài khoản nhân viên đã tồn tại") && validation.checkLengthTK(taiKhoanNV , "tbTKNV" , "*Tài khoản nhân viên chỉ từ 6 đến 8 kí số"); 
+    // checkEmpty tenNV
+    isValid &= validation.checkEmpty(tenNV , "tbTen" , "*Tên nhân viên không được để trống") && validation.checkTenNV(tenNV , "tbTen" , "*Tên nhân viên chỉ chứa kí tự chữ") ; 
+    // checkEmpty emailNV
+    isValid &= validation.checkEmpty(emailNV , "tbEmail" , "*Email không được để trống") && validation.checkEmail(emailNV , "tbEmail" , "*Email không hợp lệ") ; 
+    // checkEmpty passwordNV
+    isValid &= validation.checkEmpty(passwordNV , "tbMatKhau" , "*Password không được để trống") && validation.checkPassword(passwordNV , "tbMatKhau" , "*Password phải chứa ít nhất 1 kí tự đặc biệt , 1 chữ hoa , 1 chữ thuong , dài từ 6 đến 10 kí tự") ; 
+    // checkEmpty ngayLam
+    isValid &= validation.checkEmpty(ngayLam , "tbNgay" , "*Ngày làm không được để trống") && validation.checkDate(ngayLam , "tbNgay" , "*Ngày làm không đúng định dạng(mm/dd/yy)")  ;
+    // checkEmpty luongCoBan
+    isValid &= validation.checkEmpty(luongCoBanNV , "tbLuongCB" , "*Lương cơ bản không được để trống") && validation.checkLuongCoBan(luongCoBanNV , "tbLuongCB" , "*Lương cơ bản không hợp lệ(từ 1tr tới 20tr)") ; 
+    // checkEpty chức vụ
+    isValid &= validation.checkChucVu("chucvu" , "tbChucVu" , "*Vui lòng chọn chức vụ.") ; 
+    // checkEmpty giờ làm
+    isValid &= validation.checkEmpty(gioLam , "tbGiolam" ,"*Giờ làm không được để trống" ) && validation.checkGioLam(gioLam , "tbGiolam" , "*Làm quá ít , đuổi việc !" , "*Làm quá nhiều , đuổi !!!"); 
+    //
+    console.log(isValid) ; 
+    if(isValid){
+        getELE("btnCapNhat").dataset.dismiss = "modal" ;
+        var nv = new NhanVien(taiKhoanNV,tenNV,emailNV,passwordNV,ngayLam,luongCoBanNV,chucVu,gioLam) ; 
+        console.log("nv moi" , nv) ; 
+
+        dsnv.capNhatNV(nv , taiKhoanNV) ; 
+        showUI(dsnv.listNV) ; 
+        setLocalStorage(dsnv.listNV) ; 
+        resetFormInput() ;
+    }else{
+        getELE("btnCapNhat").dataset.dismiss = "" ; 
+    }
+     
 }
 getELE("btnCapNhat").onclick = capNhatNV ; 
 // xoa nhan vien
